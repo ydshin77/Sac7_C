@@ -1,6 +1,0 @@
-﻿  main.cpp
-C:\Sac7\C\250424\250424\main.cpp(19,6): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
-C:\Sac7\C\250424\250424\main.cpp(93,16): warning C4305: '초기화 중': 'int'에서 'short'(으)로 잘립니다.
-C:\Sac7\C\250424\250424\main.cpp(93,18): warning C4309: '초기화 중': 상수 값이 잘립니다.
-C:\Sac7\C\250424\250424\main.cpp(106,11): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  250424.vcxproj -> C:\Sac7\C\250424\x64\Debug\250424.exe

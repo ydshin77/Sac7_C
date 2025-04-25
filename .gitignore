@@ -1,0 +1,29 @@
+# 빌드 결과 무시
+*.obj
+*.exe
+*.pdb
+*.ilk
+*.idb
+*.log
+
+# 빌드 폴더 무시
+Debug/
+Release/
+x64/
+ipch/
+*.user
+*.suo
+
+# Visual Studio 설정 파일 무시
+.vs/
+*.VC.db
+*.VC.opendb
+
+# 백업 파일 무시
+*~
+*.tmp
+
+# 기타
+*.cache
+*.tlog
+*.lastbuildstate

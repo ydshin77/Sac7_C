@@ -83,7 +83,9 @@ void main() {
 					// namespace에 있는 열거형은 자동완성 안됨
 	{
 	case Scissor:	// namespace에 있는 자동완성은 타입이 int가 아니기 switch의 값이나 case의 상수에 넣을 수 없음
+					// ESRP2::Scissor2는 int형이 아니고 ESRP2 타입
 					// ESRP2 Srp2 = ESRP2::Scissor2; 이런 식으로 switch문 위에 정의해놓으면 사용 가능
+					// ESRP3::Scissor는 네임스페이스 안에 있는 일반적인 enum 이기 때문에 기본 int 타입으로 취급
 		// case 안에서 변수 선언과 동시에 초기화를 하면 오류가 발생함
 		// -> int Number3 = 100;
 		// 변수 선언 후 초기화를 하던가, 변수 선언 부분을 코드블럭으로 묶거나 해야 됨

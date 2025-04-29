@@ -15,6 +15,8 @@ while문을 이용하여 무한루프를 돌며 5x5로 출력하고 숫자를 입력받음
 
 void main() {
 
+	
+
 	srand(time(0));
 	rand();
 

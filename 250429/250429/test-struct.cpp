@@ -42,6 +42,14 @@ struct FPlayerInfo
 	int			Gold = 0;
 };
 
+struct FTest5
+{
+	char		Test1;    // 1 바이트
+	char		Test3;    // 1 바이트
+	int			Test2;    // 4 바이트
+	FPlayerInfo Info; // 72 바이트
+};
+
 struct FTest
 {
 	char		Test1;
@@ -60,7 +68,7 @@ struct FTest2
 struct FTest3
 {
 	char		Test1;
-	char		Test3;
+	char		Test2;
 	int			Test2;
 };
 
@@ -91,7 +99,7 @@ void main()
 	FPlayerInfo Info = {};
 
 	FPlayerInfo Info1 = { "Player1" };
-	
+
 	// 구조체를 배열 타입으로도 사용 가능
 	FPlayerInfo InfoArray[10] = {};
 

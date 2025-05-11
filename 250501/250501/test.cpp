@@ -1,26 +1,19 @@
 #include <iostream>
 
-// strcpy_s(Text1, "문자열 테스트") 와 같은 방식
-void StringCopy(char* Buffer, const char* Text)
-{
-	int Index = 0;
-
-	while (Text[Index] != 0)
-	{
-		Buffer[Index] = Text[Index];
-		++Index;
-	}
-	// 널 문자 복사
-	Buffer[Index] = 0;
-}
-
 int main()
-{
-	char Text1[20] = "문자열 테스트";
+{	
+	char Text1[128] = {"공격력 : 120"};
+	char* Context = nullptr;
 
-	StringCopy(Text1, "복사할대상");
-	
-	printf("Text1 = %s\n", Text1);
+	char* TokResult = strtok_s(Text1, ":", &Context);
+
+	int Attack = atoi(Context);
+
+	char Text2[128] = {};
+
+	sprintf_s(Text2, "새로운 문자열 만들기 %d\n", Attack);
+
+	printf("Text2 = %s\n", Text2);
 
 	return 0;
 }

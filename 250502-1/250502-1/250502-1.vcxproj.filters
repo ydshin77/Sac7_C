@@ -45,6 +45,9 @@
     <ClCompile Include="Battle.cpp">
       <Filter>02. Battle</Filter>
     </ClCompile>
+    <ClCompile Include="Editor.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameInfo.h">

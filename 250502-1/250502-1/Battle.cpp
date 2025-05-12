@@ -16,6 +16,7 @@ void RunMap()
 		printf("2. 보통\n");
 		printf("3. 어려움\n");
 		printf("4. 뒤로가기\n");
+
 		printf("메뉴를 선택하세요 : ");
 		int Input = 0;
 		scanf_s("%d", &Input);

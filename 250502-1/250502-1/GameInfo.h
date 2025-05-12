@@ -6,15 +6,17 @@
 #define SAFE_DELETE(p) if(p) {delete p; p = nullptr;}
 #define SAFE_DELETE_ARRAY(p) if(p) {delete[] p; p = nullptr;}
 
-// 플레이어 정보
+// 플레이어 직업 정보
 enum class EPlayerJob : unsigned char
 {
 	None,
 	Knight,
 	Archer,
-	Magicion
+	Magicion,
+	End
 };
 
+// 플레이어 정보
 struct FPlayerInfo
 {
 	char		Name[32] = {};
@@ -49,3 +51,12 @@ struct FMonsterInfo
 
 // 생성한 플레이어 정보를 다른 곳에서도 공유하여 사용할 수 있도록 extern 해줌
 extern FPlayerInfo* gPlayer;
+
+// 직업별로 다르게 세팅되어야 하는 능력치
+struct FPlayerEditorInfo
+{
+	int			Attack = 0;
+	int			Defense = 0;
+	int			HP = 0;
+	int			MP = 0;
+};

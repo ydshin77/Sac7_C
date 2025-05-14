@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{e80f5207-8165-4033-b182-fc8c7730e1f0}</ProjectGuid>
+    <ProjectGuid>{b82c5ed6-f9a5-4a56-95ea-b441051fa9dd}</ProjectGuid>
     <RootNamespace>My250513</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -130,10 +130,19 @@
     <ClCompile Include="Battle.cpp" />
     <ClCompile Include="BattleManager.cpp" />
     <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="main1.cpp" />
+    <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="ObjectManager.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Store.cpp" />
+    <ClCompile Include="StoreManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Array.h" />
@@ -141,7 +150,13 @@
     <ClInclude Include="BattleManager.h" />
     <ClInclude Include="GameInfo.h" />
     <ClInclude Include="GameManager.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="LinkedList.h" />
+    <ClInclude Include="Monster.h" />
+    <ClInclude Include="ObjectManager.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Store.h" />
+    <ClInclude Include="StoreManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

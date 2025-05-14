@@ -2,22 +2,21 @@
 
 #include "GameInfo.h"
 
-class CGameManager
+class CStoreManager
 {
 private:
-	CGameManager();
-	~CGameManager();
+	CStoreManager();
+	~CStoreManager();
 
 public:
 	bool Init();
 	void Run();
 
-
 private:
-	static CGameManager* mInst;
+	static CStoreManager* mInst;
 
 public:
-	static CGameManager* GetInst();
+	static CStoreManager* GetInst();
 	static void DestroyInst();
 };
 

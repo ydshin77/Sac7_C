@@ -1,5 +1,7 @@
 #include "GameManager.h"
 #include "BattleManager.h"
+#include "ObjectManager.h"
+#include "StoreManager.h"
 
 enum class EMainMenu : unsigned char
 {
@@ -19,6 +21,10 @@ CGameManager::CGameManager()
 
 CGameManager::~CGameManager()
 {
+	CStoreManager::DestroyInst();
+
+	CObjectManager::DestroyInst();
+
 	CBattleManager::DestroyInst();
 }
 
@@ -26,6 +32,14 @@ bool CGameManager::Init()
 {
 	// 전투관리자 초기화
 	if (!CBattleManager::GetInst()->Init())
+		return false;
+
+	// 오브젝트 관리자 초기화
+	if (!CObjectManager::GetInst()->Init())
+		return false;
+
+	// 상점 관리자 초기화
+	if (!CStoreManager::GetInst()->Init())
 		return false;
 
 	return true;
@@ -50,6 +64,7 @@ void CGameManager::Run()
 			CBattleManager::GetInst()->Run();
 			break;
 		case EMainMenu::Store:
+			CStoreManager::GetInst()->Run();
 			break;
 		case EMainMenu::Inventory:
 			break;

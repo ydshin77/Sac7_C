@@ -78,6 +78,11 @@ void CObjectManager::AddStoreItem(CArray<CItem*>& ItemList,
     }
 }
 
+CItem* CObjectManager::CloneItem(int Index)
+{
+    return mOriginItemArray[Index]->Clone();
+}
+
 bool CObjectManager::LoadPlayer()
 {
     mPlayer = new CPlayer;

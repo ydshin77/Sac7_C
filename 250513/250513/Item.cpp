@@ -27,6 +27,27 @@ bool CItem::Init(FILE* File)
 
 void CItem::Output()
 {
+	printf("이름 : %s", mName);
+
+	if (mUpgrade > 0)
+		printf(" + %d", mUpgrade);
+
+	printf("\t종류 : ");
+
+	switch (mItemType)
+	{
+	case EItemType::Weapon:
+		printf("무기\n");
+		printf("공격력 : %d\n", mOption);
+		break;
+	case EItemType::Armor:
+		printf("방어구\n");
+		printf("방어력 : %d\n", mOption);
+		break;
+	}
+
+	printf("상점구매가격 : %d\t상점판매가격 : %d\n",
+		mPrice, mSell);
 }
 
 CItem* CItem::Clone()

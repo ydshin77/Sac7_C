@@ -25,6 +25,9 @@
     <Filter Include="04. Store">
       <UniqueIdentifier>{904d3e84-6a31-4a6a-a40f-c85e68b96995}</UniqueIdentifier>
     </Filter>
+    <Filter Include="05. Inventory">
+      <UniqueIdentifier>{4f26bdac-c03f-4c9a-800a-66f1cd0085f7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -59,6 +62,9 @@
     </ClCompile>
     <ClCompile Include="Item.cpp">
       <Filter>03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Inventory.cpp">
+      <Filter>05. Inventory</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -97,6 +103,9 @@
     </ClInclude>
     <ClInclude Include="Item.h">
       <Filter>03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Inventory.h">
+      <Filter>05. Inventory</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

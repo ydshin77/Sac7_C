@@ -2,6 +2,7 @@
 #include "BattleManager.h"
 #include "ObjectManager.h"
 #include "StoreManager.h"
+#include "Inventory.h"
 
 enum class EMainMenu : unsigned char
 {
@@ -21,6 +22,8 @@ CGameManager::CGameManager()
 
 CGameManager::~CGameManager()
 {
+	CInventory::DestroyInst();
+
 	CStoreManager::DestroyInst();
 
 	CObjectManager::DestroyInst();
@@ -40,6 +43,10 @@ bool CGameManager::Init()
 
 	// 상점 관리자 초기화
 	if (!CStoreManager::GetInst()->Init())
+		return false;
+
+	// 인벤토리 초기화
+	if (!CInventory::GetInst()->Init())
 		return false;
 
 	return true;
@@ -67,6 +74,7 @@ void CGameManager::Run()
 			CStoreManager::GetInst()->Run();
 			break;
 		case EMainMenu::Inventory:
+			CInventory::GetInst()->Run();
 			break;
 		case EMainMenu::Exit:
 			return;

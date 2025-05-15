@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "ObjectManager.h"
+#include "Item.h"
 
 CPlayer::CPlayer()
 {
@@ -7,6 +8,10 @@ CPlayer::CPlayer()
 
 CPlayer::~CPlayer()
 {
+	for (int i = 0; i < EEquip::End; ++i)
+	{
+		SAFE_DELETE(mEquipItem[i]);
+	}
 }
 
 bool CPlayer::Init()
@@ -90,18 +95,16 @@ void CPlayer::Output()
 
 	printf("레벨 : %d\t경험치 : %d / %d\n", mLevel,
 		mExp, LevelExp);
-	/*printf("공격력 : %d\t방어력 : %d\n", gPlayer->Attack,
-		gPlayer->Defense);*/
 
 	printf("공격력 : %d", mAttack);
 
-	/*if (gPlayer->EquipItem[EEquip::Weapon])
-		printf(" + %d", gPlayer->EquipItem[EEquip::Weapon]->Option);*/
+	if (mEquipItem[EEquip::Weapon])
+		printf(" + %d", mEquipItem[EEquip::Weapon]->GetOption());
 
 	printf("\t방어력 : %d", mDefense);
 
-	/*if (gPlayer->EquipItem[EEquip::Armor])
-		printf(" + %d", gPlayer->EquipItem[EEquip::Armor]->Option);*/
+	if (mEquipItem[EEquip::Armor])
+		printf(" + %d", mEquipItem[EEquip::Armor]->GetOption());
 
 	printf("\n");
 
@@ -112,18 +115,18 @@ void CPlayer::Output()
 
 	printf("장착무기 : ");
 
-	/*if (gPlayer->EquipItem[EEquip::Weapon])
-		printf("%s\t", gPlayer->EquipItem[EEquip::Weapon]->Name);
+	if (mEquipItem[EEquip::Weapon])
+		printf("%s\t", mEquipItem[EEquip::Weapon]->GetName());
 
-	else*/
+	else
 		printf("없음\t");
 
 	printf("장착방어구 : ");
 
-	/*if (gPlayer->EquipItem[EEquip::Armor])
-		printf("%s\n", gPlayer->EquipItem[EEquip::Armor]->Name);
+	if (mEquipItem[EEquip::Armor])
+		printf("%s\n", mEquipItem[EEquip::Armor]->GetName());
 
-	else*/
+	else
 		printf("없음\n");
 }
 

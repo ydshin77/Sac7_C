@@ -79,6 +79,7 @@ void Run()
 		printf("2. 상점\n");
 		printf("3. 가방\n");
 		printf("4. 종료\n");
+
 		printf("메뉴를 선택하세요 : ");
 		int Input = 0;
 		scanf_s("%d", &Input);

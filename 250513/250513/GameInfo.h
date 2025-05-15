@@ -7,6 +7,8 @@
 #define	SAFE_DELETE(p)	if(p)	{ delete p; p = nullptr; }
 #define	SAFE_DELETE_ARRAY(p)	if(p)	{ delete[] p; p = nullptr; }
 
+#define	ITEM_UPGRADE_MAX	20
+
 enum class EMapMenu : unsigned char
 {
 	None,

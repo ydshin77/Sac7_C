@@ -2,6 +2,7 @@
 #include "ObjectManager.h"
 #include "Item.h"
 #include "Player.h"
+#include "Inventory.h"
 
 CStore::CStore()
 {
@@ -70,14 +71,23 @@ void CStore::Run()
         }
 
         // 인벤토리 칸 부족한지 체크
-
+        else if (CInventory::GetInst()->IsFull())
+        {
+            printf("인벤토리 공간이 부족합니다.\n");
+            system("pause");
+            continue;
+        }
 
         // 아이템 생성
         CItem* NewItem = mItemList[StoreIndex]->Clone();
 
         // 인벤토리에 추가
+        CInventory::GetInst()->AddItem(NewItem);
 
-        // 플레이어 보유감액 차감.
+        // 플레이어 보유금액 차감.
         Player->AddGold(-mItemList[StoreIndex]->GetPrice());
+
+        printf("%s 아이템을 구매하였습니다.\n", NewItem->GetName());
+        system("pause");
     }
 }

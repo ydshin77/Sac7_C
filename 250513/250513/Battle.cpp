@@ -2,6 +2,8 @@
 #include "ObjectManager.h"
 #include "Player.h"
 #include "Monster.h"
+#include "Item.h"
+#include "Inventory.h"
 
 namespace EBattleMenu
 {
@@ -35,8 +37,8 @@ EBattleResult CBattle::Battle(CPlayer* Player, CMonster* Monster)
 	// 장착 무기가 있을 경우 추가 공격력이 적용되어야 한다.
 	int	Attack = Player->GetAttack();
 
-	/*if (gPlayer->EquipItem[EEquip::Weapon])
-		Attack += gPlayer->EquipItem[EEquip::Weapon]->Option;*/
+	if (Player->GetEquipItem(EEquip::Weapon))
+		Attack += Player->GetEquipItem(EEquip::Weapon)->GetOption();
 
 	int	Damage = Attack - Monster->GetDefense();
 
@@ -58,37 +60,26 @@ EBattleResult CBattle::Battle(CPlayer* Player, CMonster* Monster)
 		printf("Monster가 죽었습니다.\n");
 
 		// 인벤토리에 공간이 있을 경우에만 아이템을 획득할 수 있게 한다.
-		//if (gInventory->Count < INVENTORY_MAX)
-		//{
-		//	// 아이템을 드랍할 확률을 구한다.
-		//	float	Percent = rand() % 10000 / 100.f;
+		if (!CInventory::GetInst()->IsFull())
+		{
+			// 아이템을 드랍할 확률을 구한다.
+			float	Percent = rand() % 10000 / 100.f;
 
-		//	// 20% 확률로 아이템을 획득한다.
-		//	if (Percent < 20.f)
-		//	{
-		//		// 어떤 아이템을 드랍할지 결정한다.
-		//		int	DropIndex = rand() % gItemListCount;
+			// 20% 확률로 아이템을 획득한다.
+			if (Percent < 20.f)
+			{
+				// 어떤 아이템을 드랍할지 결정한다.
+				int	DropIndex = rand() % CObjectManager::GetInst()->GetOriginItemCount();
 
-		//		FItem* DropItem = new FItem;
+				CItem* DropItem = CObjectManager::GetInst()->CloneItem(DropIndex);
 
-		//		*DropItem = gItemList[DropIndex];
+				CInventory::GetInst()->AddItem(DropItem);
 
-		//		// 인벤토리의 빈 공간을 찾아 아이템을 넣어준다.
-		//		for (int i = 0; i < INVENTORY_MAX; ++i)
-		//		{
-		//			if (!gInventory->ItemList[i])
-		//			{
-		//				gInventory->ItemList[i] = DropItem;
-		//				++gInventory->Count;
-		//				break;
-		//			}
-		//		}
-
-		//		printf("%s 아이템을 획득하였습니다.\n",
-		//			DropItem->Name);
-		//		system("pause");
-		//	}
-		//}
+				printf("%s 아이템을 획득하였습니다.\n",
+					DropItem->GetName());
+				system("pause");
+			}
+		}
 
 
 		// 레벨업 했는지 확인.
@@ -103,8 +94,8 @@ EBattleResult CBattle::Battle(CPlayer* Player, CMonster* Monster)
 	// 장착방어구가 있을 경우 추가 방어력을 적용한다.
 	int	Defense = Player->GetDefense();
 
-	/*if (gPlayer->EquipItem[EEquip::Armor])
-		Defense += gPlayer->EquipItem[EEquip::Armor]->Option;*/
+	if (Player->GetEquipItem(EEquip::Armor))
+		Defense += Player->GetEquipItem(EEquip::Armor)->GetOption();
 
 	Damage = Monster->GetAttack() - Defense;
 

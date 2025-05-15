@@ -49,6 +49,28 @@ struct FMonsterInfo
 	int			Gold = 0;
 };
 
+// 아이템 종류
+namespace EItemType
+{
+	enum Type
+	{
+		None = -1,
+		Weapon,
+		Armor,
+		End
+	};
+}
+
+// 아이템 정보
+struct FItem
+{
+	char		Name[32] = {};
+	EItemType::Type ItemType = EItemType::Weapon;
+	int			Option = 0;
+	int			Price = 0;
+	int			Sell = 0;
+};
+
 // 생성한 플레이어 정보를 다른 곳에서도 공유하여 사용할 수 있도록 extern 해줌
 extern FPlayerInfo* gPlayer;
 

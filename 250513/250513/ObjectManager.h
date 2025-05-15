@@ -32,11 +32,17 @@ public:
 		return mExpTable[Level - 1];
 	}
 
+	int GetOriginItemCount()	const
+	{
+		return mOriginItemArray.size();
+	}
+
 public:
 	bool Init();
 	CMonster* CloneMonster(EMapMenu MapType);
 	void AddStoreItem(CArray<CItem*>& ItemList, 
 		EStoreType::Type StoreType);
+	CItem* CloneItem(int Index);
 
 private:
 	bool LoadPlayer();

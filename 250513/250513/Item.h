@@ -59,6 +59,13 @@ public:
 		return mUpgrade;
 	}
 
+	void UpgradeSuccess(int AddUpgrade, int AddOption, int AddSell)
+	{
+		mUpgrade += AddUpgrade;
+		mOption += AddOption;
+		mSell += AddSell;
+	}
+
 public:
 	bool Init(FILE* File);
 	void Output();

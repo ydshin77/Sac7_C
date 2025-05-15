@@ -11,6 +11,18 @@ enum class EPlayerJob : unsigned char
 	End
 };
 
+namespace EEquip
+{
+	enum Type
+	{
+		None = -1,
+		Weapon,
+		Armor,
+		End
+	};
+}
+
+class CItem;
 class CPlayer
 {
 public:
@@ -30,9 +42,21 @@ private:
 	int		mExp = 0;
 	int		mGold = 10000;
 
-	//FItem* EquipItem[EEquip::End] = {};
+	CItem* mEquipItem[EEquip::End] = {};
 
 public:
+	CItem* GetEquipItem(EEquip::Type EquipType)
+	{
+		return mEquipItem[EquipType];
+	}
+
+	CItem* Equip(EEquip::Type EquipType, CItem* Item)
+	{
+		CItem* EquipItem = mEquipItem[EquipType];
+		mEquipItem[EquipType] = Item;
+		return EquipItem;
+	}
+
 	int GetAttack()	const
 	{
 		return mAttack;

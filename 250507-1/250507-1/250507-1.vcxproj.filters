@@ -19,6 +19,12 @@
     <Filter Include="02. Battle">
       <UniqueIdentifier>{267f3ebb-a5ba-4476-8400-ed446f2f518e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Store">
+      <UniqueIdentifier>{0ab044e3-b906-4919-8814-76dfbfdf414c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Inventory">
+      <UniqueIdentifier>{8dae329b-a836-4629-a3fd-17d15007b281}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -39,6 +45,12 @@
     <ClCompile Include="EditorItem.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Store.cpp">
+      <Filter>03. Store</Filter>
+    </ClCompile>
+    <ClCompile Include="Inventory.cpp">
+      <Filter>04. Inventory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameInfo.h">
@@ -49,6 +61,12 @@
     </ClInclude>
     <ClInclude Include="GameManager.h">
       <Filter>01. GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Store.h">
+      <Filter>03. Store</Filter>
+    </ClInclude>
+    <ClInclude Include="Inventory.h">
+      <Filter>04. Inventory</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

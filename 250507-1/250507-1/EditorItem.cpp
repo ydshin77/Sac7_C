@@ -23,67 +23,96 @@ namespace EEditorItemMenu
 }
 
 // 파일 쓰기 함수
-void Save(FPlayerEditorInfo* Info)
+void Save(FItem** Info, int Count)
 {
 	FILE* FileStream = nullptr;
 
-	fopen_s(&FileStream, "PlayerInfo.pli", "wb");
+	fopen_s(&FileStream, "ItemList.itl", "wb");
 
 	if (!FileStream)
 		return;
 
-	fwrite(Info, sizeof(FPlayerEditorInfo), 3, FileStream);
+	// 아이템 몇 개를 저장하는지 먼저 저장
+	fwrite(&Count, sizeof(int), 1, FileStream);
+
+	for (int i = 0; i < Count; ++i)
+	{
+		// 아이템을 하나하나 저장
+		fwrite(Info[i], sizeof(FItem), 1, FileStream);
+	}
 
 	fclose(FileStream);
 }
 
 // 파일 읽기 함수
-void Load(FPlayerEditorInfo* Info)
+void Load(FItem**& Info, int& Capacity, int& Count)
 {
 	FILE* FileStream = nullptr;
 
-	fopen_s(&FileStream, "PlayerInfo.pli", "rb");
+	fopen_s(&FileStream, "ItemList.itl", "rb");
 
 	if (!FileStream)
 		return;
 
-	fread(Info, sizeof(FPlayerEditorInfo), 3, FileStream);
+	// 동적 할당된 기존 아이템 제거
+	for (int i = 0; i < Count; ++i)
+	{
+		SAFE_DELETE(Info[i]);
+	}
+
+	// 동적 할당된 기존 배열 제거
+	SAFE_DELETE_ARRAY(Info);
+
+	// 아이템이 몇 개 저장됐는지 불러옴
+	fread(&Count, sizeof(int), 1, FileStream);
+
+	// 배열 생성
+	Capacity = Count;
+
+	Info = new FItem*[Capacity];
+
+	for (int i = 0; i < Capacity; ++i)
+	{
+		Info[i] = new FItem;
+		fread(Info[i], sizeof(FItem), 1, FileStream);
+	}
 
 	fclose(FileStream);
 }
 
 // 아이템 정보 수정 함수
-void Modify(FPlayerEditorInfo* Info)
+// 값을 수정할 필요가 없으니까 레퍼런스를 쓰지 않음
+void Modify(FItem** Info, int Count)
 {
-	// 직업 선택
-	printf("1. 기사\n");
-	printf("2. 궁수\n");
-	printf("3. 마법사\n");
+	//// 직업 선택
+	//printf("1. 기사\n");
+	//printf("2. 궁수\n");
+	//printf("3. 마법사\n");
 
-	printf("수정할 직업을 선택하세요 : ");
-	int Input = 0;
-	scanf_s("%d", &Input);
+	//printf("수정할 직업을 선택하세요 : ");
+	//int Input = 0;
+	//scanf_s("%d", &Input);
 
-	if (Input <= 0 || Input >= 4)
-		return;
+	//if (Input <= 0 || Input >= 4)
+	//	return;
 
-	// 능력치 수정
-	int Index = Input - 1;
+	//// 능력치 수정
+	//int Index = Input - 1;
 
-	printf("공격력 : ");
-	scanf_s("%d", &Info[Index].Attack);
+	//printf("공격력 : ");
+	//scanf_s("%d", &Info[Index].Attack);
 
-	printf("방어력 : ");
-	scanf_s("%d", &Info[Index].Defense);
+	//printf("방어력 : ");
+	//scanf_s("%d", &Info[Index].Defense);
 
-	printf("체력 : ");
-	scanf_s("%d", &Info[Index].HP);
+	//printf("체력 : ");
+	//scanf_s("%d", &Info[Index].HP);
 
-	printf("마나 : ");
-	scanf_s("%d", &Info[Index].MP);
+	//printf("마나 : ");
+	//scanf_s("%d", &Info[Index].MP);
 
 	// 입력한 내용을 파일에 저장
-	Save(Info);
+	Save(Info, Count);
 }
 
 // 아이템 생성 함수
@@ -100,7 +129,7 @@ void Create(FItem**& ItemArray, int& Capacity, int& Count)
 		Capacity *= 2;
 
 		// 늘려준 공간 수만큼 배열을 새로 생성
-		FItem** NewArray = new FItem* [Capacity];
+		FItem** NewArray = new FItem*[Capacity];
 
 		// 기존 배열에 있는 정보를 새로운 배열에 넣어줌
 		for (int i = 0; i < Count; ++i)
@@ -123,6 +152,8 @@ void Create(FItem**& ItemArray, int& Capacity, int& Count)
 	printf("추가할 아이템 종류를 선택하세요 : ");
 	int ItemType = 0;
 	scanf_s("%d", &ItemType);
+
+	--ItemType;
 
 	if (ItemType <= EItemType::None || ItemType >= EItemType::End)
 		return;
@@ -155,6 +186,9 @@ void Create(FItem**& ItemArray, int& Capacity, int& Count)
 
 	ItemArray[Count] = Item;
 	++Count;
+
+	// 아이템 저장
+	Save(ItemArray, Count);
 }
 
 int main()
@@ -167,7 +201,7 @@ int main()
 
 	// 아이템 종류가 늘어날 수도 있으니 가변 배열로 생성
 	// 방법 1. 이중 포인터 사용 -> 메모리 주소를 저장하는 배열 세 개 생성
-	FItem** ItemArray = new FItem* [ItemCapacity];
+	FItem** ItemArray = new FItem*[ItemCapacity];
 
 	// 방법 2. 포인터 사용		-> 아이템 정보를 저장하는 배열 세 개 생성
 	//FItem* ItemArray = new FItem[ItemCapacity];
@@ -197,24 +231,42 @@ int main()
 		case EEditorItemMenu::Modify:
 			break;
 		case EEditorItemMenu::Load:
-			Load(JobInfo);
+			Load(ItemArray, ItemCapacity, ItemCount);
 			break;
 		case EEditorItemMenu::Output:
-			for (int i = 0; i < 3; ++i)
+			for (int i = 0; i < ItemCount; ++i)
 			{
-				printf("공격력 : %d\n", JobInfo[i].Attack);
-				printf("방어력 : %d\n", JobInfo[i].Defense);
-				printf("체력 : %d\n", JobInfo[i].HP);
-				printf("마나 : %d\n", JobInfo[i].MP);
-				printf("==============\n");
+				printf("이름 : %s\n", ItemArray[i]->Name);
+			
+				switch (ItemArray[i]->ItemType)
+				{
+				case EItemType::Weapon:
+					printf("종류 : 무기\n");
+					printf("공격력 : %d\n", ItemArray[i]->Option);
+					break;
+				case EItemType::Armor:
+					printf("종류 : 방어구\n");
+					printf("방어력 : %d\n", ItemArray[i]->Option);
+					break;
+				}
+				
+				printf("상점 구매 가격 : %d\n", ItemArray[i]->Price);
+				printf("상점 판매 가격 : %d\n", ItemArray[i]->Sell);
+				printf("=============================\n");
 			}
 			system("pause");
 			break;
 		case EEditorItemMenu::Exit:
 			// 게임이 종료될 때 자동 세이브
-			Save(JobInfo);
+			Save(ItemArray, ItemCount);
 
-			// 동적 배열 제거
+			// 동적 할당된 아이템 제거
+			for (int i = 0; i < ItemCount; ++i)
+			{
+				SAFE_DELETE(ItemArray[i]);
+			}
+			
+			// 동적 할당된 배열 제거
 			SAFE_DELETE_ARRAY(ItemArray);
 
 			return 0;

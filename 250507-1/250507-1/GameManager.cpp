@@ -1,6 +1,8 @@
 
 #include "GameManager.h"
 #include "Battle.h"
+#include "Store.h"
+#include "Inventory.h"
 
 // 플레이어 정보 생성
 FPlayerInfo* gPlayer = nullptr;
@@ -57,11 +59,30 @@ bool GameInit()
 	if (!BattleInit())
 		return false;
 
+	// 상점 초기화에 실패했으면 false 반환
+	if (!StoreInit())
+		return false;
+
+	// 인벤토리 초기화에 실패했으면 false 반환
+	if (!InventoryInit())
+		return false;
+
 	return true;
 }
 
 void GameDestroy()
 {
+	// 동적 할당한 인벤토리 정보 제거
+	InventoryDestroy();
+	// 동적 할당한 상점 정보 제거
+	StoreDestroy();
+	// 동적 할당된 배틀 정보 제거
+	BattleDestroy();
+	// 동적 할당된 플레이어의 장착 아이템 제거
+	for (int i = 0; i < EEquip::End; ++i)
+	{
+		SAFE_DELETE(gPlayer->EquipItem[i]);
+	}
 	// 동적 할당한 플레이어 정보 제거
 	SAFE_DELETE(gPlayer);
 }
@@ -93,8 +114,12 @@ void Run()
 			RunMap();
 			break;
 		case EMainMenu::Store:
+			// 상점 메뉴 출력
+			RunStore();
 			break;
 		case EMainMenu::Inventory:
+			// 인벤토리 메뉴 출력
+			RunInventory();
 			break;
 		case EMainMenu::Exit:
 			printf("게임을 종료합니다.");

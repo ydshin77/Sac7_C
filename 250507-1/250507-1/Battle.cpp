@@ -24,6 +24,9 @@ enum class EBattleResult : unsigned char
 // 전투 초기화 때, MonsterInfo 파일에서 읽어온 정보를 저장할 전역변수 선언
 FMonsterEditorInfo gMonsterOriginInfo[EMapMenu::MapCount];
 
+// 경험치 테이블
+int* gExpTable = nullptr;
+
 bool BattleInit()
 {
 	// MonsterInfo 파일로부터 몬스터 정보를 읽어서 메모리에 저장
@@ -38,7 +41,45 @@ bool BattleInit()
 
 	fclose(FileStream);
 
+	// 경험치 테이블 읽어옴
+	fopen_s(&FileStream, "ExpTable.txt", "rt");
+
+	if (!FileStream)
+		return false;
+
+	char Line[512] = {};
+
+	// 테이블 개수 저장 (첫번째줄)
+	fgets(Line, 512, FileStream);
+
+	int TableCount = atoi(Line);
+
+	// 경험치 테이블 동적 할당
+	gExpTable = new int[TableCount];
+
+	// 문자열 분리 (두번째줄)
+	fgets(Line, 512, FileStream);
+
+	char* Context = nullptr;
+	char* TokResult = strtok_s(Line, ",", &Context);
+
+	// 경험치 테이블에 값 넣기
+	gExpTable[0] = atoi(TokResult);
+
+	for (int i = 1; i < TableCount; ++i)
+	{
+		TokResult = strtok_s(nullptr, ",", &Context);
+		gExpTable[i] = atoi(TokResult);
+	}
+
+	fclose(FileStream);
+
 	return true;
+}
+
+void BattleDestroy()
+{
+	SAFE_DELETE_ARRAY(gExpTable);
 }
 
 // 플레이어 정보 출력
@@ -60,11 +101,53 @@ void OutputPlayerBattle()
 		break;
 	}
 
-	printf("레벨 : %d\t\t경험치 : %d\n", gPlayer->Level, gPlayer->Exp);
-	printf("공격력 : %d\t\t방어력 : %d\n", gPlayer->Attack, gPlayer->Defense);
-	printf("체력 : %d / %d\t마나 : %d / %d\n", 
-		gPlayer->HP, gPlayer->HPMax, gPlayer->MP, gPlayer->MPMax);
+	printf("레벨 : %d\t\t경험치 : %d / %d\n",
+		gPlayer->Level, gPlayer->Exp, gExpTable[gPlayer->Level - 1]);
+
+	printf("공격력 : %d", gPlayer->Attack);
+
+	if (gPlayer->EquipItem[EEquip::Weapon])
+		printf(" + %d", gPlayer->EquipItem[EEquip::Weapon]->Option);
+
+	printf("\t\t방어력 : %d", gPlayer->Defense);
+
+	if (gPlayer->EquipItem[EEquip::Armor])
+		printf(" + %d", gPlayer->EquipItem[EEquip::Armor]->Option);
+
+	printf("\n");
+
+	printf("체력 : %d / %d\t", gPlayer->HP, gPlayer->HPMax);
+	printf("마나 : %d / %d\n", gPlayer->MP, gPlayer->MPMax);
 	printf("골드 : %d\n", gPlayer->Gold);
+
+	printf("장착 무기 : ");
+
+	if (gPlayer->EquipItem[EEquip::Weapon])
+	{
+		printf("%s", gPlayer->EquipItem[EEquip::Weapon]->Name);
+
+		if (gPlayer->EquipItem[EEquip::Weapon]->Upgrade > 0)
+			printf(" +%d", gPlayer->EquipItem[EEquip::Weapon]->Upgrade);
+
+		printf("\t");
+	}
+
+	else
+		printf("없음\t");
+
+	printf("장착 방어구 : ");
+	if (gPlayer->EquipItem[EEquip::Armor])
+	{
+		printf("%s", gPlayer->EquipItem[EEquip::Armor]->Name);
+
+		if (gPlayer->EquipItem[EEquip::Armor]->Upgrade > 0)
+			printf(" +%d", gPlayer->EquipItem[EEquip::Armor]->Upgrade);
+
+		printf("\n");
+	}
+
+	else
+		printf("없음\n");
 }
 
 // 몬스터 정보 출력
@@ -81,7 +164,13 @@ void OutputMonsterBattle(FMonsterInfo* Monster)
 EBattleResult Battle(FMonsterInfo* Monster)
 {
 	// 플레이어가 몬스터를 공격
-	int Damage = gPlayer->Attack - Monster->Defense;
+	// 장착 무기가 잇을 경우 추가 공격력 적용
+	int Attack = gPlayer->Attack;
+
+	if (gPlayer->EquipItem[EEquip::Weapon])
+		Attack += gPlayer->EquipItem[EEquip::Weapon]->Option;
+
+	int Damage = Attack - Monster->Defense;
 
 	// 데미지가 최소 1이라도 들어갈 수 있도록 함
 	// 방법 1. 삼항연산자 사용
@@ -105,13 +194,37 @@ EBattleResult Battle(FMonsterInfo* Monster)
 
 		printf("Monster가 죽었습니다.\n");
 
+		// 레벨업 했는지 확인
+		if (gPlayer->Exp >= gExpTable[gPlayer->Level - 1])
+		{
+			gPlayer->Exp -= gExpTable[gPlayer->Level - 1];
+
+			++gPlayer->Level;
+
+			gPlayer->Attack = (int)(gPlayer->Attack * 1.1f);
+			gPlayer->Defense = (int)(gPlayer->Defense * 1.1f);
+			gPlayer->HPMax = (int)(gPlayer->HPMax * 1.1f);
+			gPlayer->MPMax = (int)(gPlayer->MPMax * 1.1f);
+
+			gPlayer->HP = gPlayer->HPMax;
+			gPlayer->MP = gPlayer->MPMax;
+
+			printf("레벨이 올랐습니다.\n");
+		}
+
 		system("pause");
 
 		return EBattleResult::MonsterDeath;
 	}
 
 	// 몬스터가 플레이어를 공격
-	Damage = Monster->Attack - gPlayer->Defense;
+	// 장착 방어구가 있을 경우 추가 방어력 적용
+	int Defense = gPlayer->Defense;
+
+	if (gPlayer->EquipItem[EEquip::Armor])
+		Defense += gPlayer->EquipItem[EEquip::Armor]->Option;
+
+	Damage = Monster->Attack - Defense;
 
 	Damage = Damage <= 0 ? 1 : Damage;
 
@@ -193,6 +306,7 @@ void RunBattle(EMapMenu::Type BattleType)
 		if (Input <= EBattleMenu::None || Input >= EBattleMenu::End)
 		{
 			printf("잘못된 값을 입력하였습니다. 다시 입력해주세요.");
+			system("pause");
 			continue;
 		}
 

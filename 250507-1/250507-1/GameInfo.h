@@ -103,6 +103,8 @@ struct FInventory
 // 생성한 정보를 다른 곳에서도 공유하여 사용할 수 있도록 extern 해줌
 extern FPlayerInfo* gPlayer;
 extern FInventory* gInventory;
+extern FItem* gItemList;
+extern int gItemListCount;
 
 // 직업별로 다르게 세팅 되어야 하는 능력치
 struct FPlayerEditorInfo

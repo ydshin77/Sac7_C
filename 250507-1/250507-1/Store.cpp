@@ -17,6 +17,8 @@ FItem* gWeaponStore = nullptr;
 int gWeaponStoreCount = 0;
 FItem* gArmorStore = nullptr;
 int gArmorStoreCount = 0;
+FItem* gItemList = nullptr;
+int gItemListCount = 0;
 
 bool StoreInit()
 {
@@ -27,23 +29,21 @@ bool StoreInit()
 	if (!FileStream)
 		return false;
 
-	int ItemListCount = 0;
-
 	// 아이템이 몇 개 저장됐는지 불러옴
-	fread(&ItemListCount, sizeof(int), 1, FileStream);
+	fread(&gItemListCount, sizeof(int), 1, FileStream);
 
 	// 아이템 리스트 동적 배열 생성
-	FItem* ItemList =  new FItem[ItemListCount];
+	gItemList =  new FItem[gItemListCount];
 
-	for (int i = 0; i < ItemListCount; ++i)
+	for (int i = 0; i < gItemListCount; ++i)
 	{
-		fread(&ItemList[i], sizeof(FItem), 1, FileStream);
+		fread(&gItemList[i], sizeof(FItem), 1, FileStream);
 
 		// 읽어온 아이템이 무기인지 방어구인지에 따라 개수 추가
-		if (ItemList[i].ItemType == EItemType::Weapon)
+		if (gItemList[i].ItemType == EItemType::Weapon)
 			++gWeaponStoreCount;
 
-		else if (ItemList[i].ItemType == EItemType::Armor)
+		else if (gItemList[i].ItemType == EItemType::Armor)
 			++gArmorStoreCount;
 	}
 
@@ -56,11 +56,11 @@ bool StoreInit()
 		int Index = 0;
 
 		// 전체 아이템 수만큼 반복하여 무기를 찾고 무기 상점에 넣음
-		for (int i = 0; i < ItemListCount; ++i)
+		for (int i = 0; i < gItemListCount; ++i)
 		{
-			if (ItemList[i].ItemType == EItemType::Weapon)
+			if (gItemList[i].ItemType == EItemType::Weapon)
 			{
-				gWeaponStore[Index] = ItemList[i];
+				gWeaponStore[Index] = gItemList[i];
 				++Index;
 			}
 		}
@@ -73,23 +73,22 @@ bool StoreInit()
 		int Index = 0;
 
 		// 전체 아이템 수만큼 반복하여 방어구를 찾고 방어구 상점에 넣음
-		for (int i = 0; i < ItemListCount; ++i)
+		for (int i = 0; i < gItemListCount; ++i)
 		{
-			if (ItemList[i].ItemType == EItemType::Armor)
+			if (gItemList[i].ItemType == EItemType::Armor)
 			{
-				gArmorStore[Index] = ItemList[i];
+				gArmorStore[Index] = gItemList[i];
 				++Index;
 			}
 		}
 	}
-
-	SAFE_DELETE_ARRAY(ItemList);
 
 	return true;
 }
 
 void StoreDestroy()
 {
+	SAFE_DELETE_ARRAY(gItemList);
 	SAFE_DELETE_ARRAY(gWeaponStore);
 	SAFE_DELETE_ARRAY(gArmorStore);
 }
@@ -193,8 +192,17 @@ void RunStore(EStoreType::Type StoreType)
 		gPlayer->Gold -= NewItem->Price;
 
 		// 인벤토리에 추가
-		gInventory->ItemList[gInventory->Count] = NewItem;
-		++gInventory->Count;
+		// 현재 인벤토리에서 가장 앞에 있는 빈 공간 찾기
+		for (int i = 0; i < INVENTORY_MAX; ++i)
+		{
+			if (!gInventory->ItemList[i])
+			{
+				gInventory->ItemList[i] = NewItem;
+				++gInventory->Count;
+				break;
+			}
+		}
+
 	}
 	
 }

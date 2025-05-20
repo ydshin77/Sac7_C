@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="01. GameManager">
+      <UniqueIdentifier>{fe4ce695-9290-47cb-b56e-6c7a11d03a56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Maze">
+      <UniqueIdentifier>{cdac28f1-a1d5-4b05-84cb-b9c3a666b03d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Object">
+      <UniqueIdentifier>{f4fce109-e61d-4b0e-86d9-078dc5c7f553}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Scene">
+      <UniqueIdentifier>{4a6fbb48-0b81-44c8-97b7-5bf88de8bb25}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>01. GameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Maze\Maze.cpp">
+      <Filter>02. Maze</Filter>
+    </ClCompile>
+    <ClCompile Include="Maze\MazeManager.cpp">
+      <Filter>02. Maze</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Player.cpp">
+      <Filter>03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\ObjectManager.cpp">
+      <Filter>03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SceneManager.cpp">
+      <Filter>04. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Scene.cpp">
+      <Filter>04. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\GameObject.cpp">
+      <Filter>03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SceneMazeMenu.cpp">
+      <Filter>04. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SceneGame.cpp">
+      <Filter>04. Scene</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GameInfo.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>01. GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Maze\Maze.h">
+      <Filter>02. Maze</Filter>
+    </ClInclude>
+    <ClInclude Include="Maze\MazeManager.h">
+      <Filter>02. Maze</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Player.h">
+      <Filter>03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\ObjectManager.h">
+      <Filter>03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneManager.h">
+      <Filter>04. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Scene.h">
+      <Filter>04. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\GameObject.h">
+      <Filter>03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneMazeMenu.h">
+      <Filter>04. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneGame.h">
+      <Filter>04. Scene</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

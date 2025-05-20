@@ -8,6 +8,7 @@ namespace EInventoryItemMenu
 		None,
 		Equip,
 		Upgrade,
+		Sell,
 		Back,
 		End
 	};
@@ -106,6 +107,10 @@ void Equip(int ItemIndex)
 
 	// 인벤토리에 장착하고 있던 아이템을 넣어줌 (스왑)
 	gInventory->ItemList[ItemIndex] = EquipItem;
+
+	// 기존에 장착하고 있던 아이템이 없을 경우 아이템 수를 줄임
+	if (!EquipItem)
+	--gInventory->Count;
 }
 
 // 선택한 아이템 강화
@@ -153,6 +158,26 @@ void Upgrade(int ItemIndex)
 	system("pause");
 }
 
+// 선택한 아이템 판매
+void ItemSell(int ItemIndex)
+{
+	// 아이템이 없을 경우
+	if (!gInventory->ItemList[ItemIndex])
+	{
+		printf("판매할 아이템이 없습니다.\n");
+		system("pause");
+		return;
+	}
+
+	// 플레이어 보유 금액 증가
+	gPlayer->Gold += gInventory->ItemList[ItemIndex]->Sell;
+
+	// 아이템 제거
+	SAFE_DELETE(gInventory->ItemList[ItemIndex]);
+
+	--gInventory->Count;
+}
+
 // 선택한 아이템 메뉴 출력
 void RunItem(int ItemIndex)
 {
@@ -165,7 +190,8 @@ void RunItem(int ItemIndex)
 
 		printf("1. 장착\n");
 		printf("2. 강화\n");
-		printf("3. 뒤로가기\n");
+		printf("3. 판매\n");
+		printf("4. 뒤로가기\n");
 
 		// 장착 아이템 및 보유 골드 출력
 		printf("장착 무기 : ");
@@ -220,6 +246,9 @@ void RunItem(int ItemIndex)
 		case EInventoryItemMenu::Upgrade:
 			Upgrade(ItemIndex);
 			break;
+		case EInventoryItemMenu::Sell:
+			ItemSell(ItemIndex);
+			return;
 		}
 	}
 }

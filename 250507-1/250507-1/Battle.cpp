@@ -194,6 +194,37 @@ EBattleResult Battle(FMonsterInfo* Monster)
 
 		printf("Monster가 죽었습니다.\n");
 
+		// 인벤토리에 공간이 있을 경우에만 아이템 획득 가능
+		if (gInventory->Count < INVENTORY_MAX)
+		{
+			// 아이템 드랍 확률 구하기
+			float Percent = rand() % 10000 / 100.f;
+
+			// 20% 확률로 아이템 획득
+			if (Percent < 20.f)
+			{
+				// 어떤 아이템을 드랍할지 결정
+				int DropIndex = rand() % gItemListCount;
+
+				FItem* DropItem = new FItem;
+
+				*DropItem = gItemList[DropIndex];
+
+				// 인벤토리의 빈 공간을 찾아 아이템을 넣음
+				for (int i = 0; i < INVENTORY_MAX; ++i)
+				{
+					if (!gInventory->ItemList[i])
+					{
+						gInventory->ItemList[i] = DropItem;
+						++gInventory->Count;
+						break;
+					}
+				}
+
+				printf("%s 아이템을 획득하였습니다.\n", DropItem->Name);
+			}
+		}
+
 		// 레벨업 했는지 확인
 		if (gPlayer->Exp >= gExpTable[gPlayer->Level - 1])
 		{

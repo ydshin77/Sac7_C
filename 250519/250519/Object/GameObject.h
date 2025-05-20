@@ -2,6 +2,7 @@
 
 #include "../GameInfo.h"
 
+class CScene;
 class CGameObject
 {
 public:
@@ -9,18 +10,45 @@ public:
 	virtual ~CGameObject();
 
 protected:
-	int		mPosX = 0;
-	int		mPosY = 0;
+	CScene* mScene = nullptr;
+	COORD	mPos = {};
+	bool	mActive = true;
 
 public:
+	bool GetActive()	const
+	{
+		return mActive;
+	}
+
+	void Destroy()
+	{
+		mActive = false;
+	}
+
+	void SetScene(CScene* Scene)
+	{
+		mScene = Scene;
+	}
+
 	void SetPos(int x, int y)
 	{
-		mPosX = x;
-		mPosY = y;
+		mPos.X = x;
+		mPos.Y = y;
+	}
+
+	void SetPos(const COORD& Pos)
+	{
+		mPos = Pos;
+	}
+
+	const COORD& GetPos()	const
+	{
+		return mPos;
 	}
 
 public:
 	virtual bool Init();
-	virtual void Output();
+	virtual void Update(float DeltaTime);
+	virtual void Output(char* Buffer);
 };
 

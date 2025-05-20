@@ -13,6 +13,10 @@ bool CGameObject::Init()
 	return true;
 }
 
-void CGameObject::Output()
+void CGameObject::Update(float DeltaTime)
+{
+}
+
+void CGameObject::Output(char* Buffer)
 {
 }

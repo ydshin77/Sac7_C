@@ -131,6 +131,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Maze\Maze.cpp" />
     <ClCompile Include="Maze\MazeManager.cpp" />
+    <ClCompile Include="Object\Bomb.cpp" />
     <ClCompile Include="Object\GameObject.cpp" />
     <ClCompile Include="Object\ObjectManager.cpp" />
     <ClCompile Include="Object\Player.cpp" />
@@ -144,6 +145,7 @@
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Maze\Maze.h" />
     <ClInclude Include="Maze\MazeManager.h" />
+    <ClInclude Include="Object\Bomb.h" />
     <ClInclude Include="Object\GameObject.h" />
     <ClInclude Include="Object\ObjectManager.h" />
     <ClInclude Include="Object\Player.h" />

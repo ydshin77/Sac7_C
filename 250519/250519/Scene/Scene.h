@@ -15,12 +15,26 @@ protected:
 	std::list<CGameObject*>	mObjList;
 	char* mOutputBuffer = nullptr;
 
+	LARGE_INTEGER	mSecond;
+	LARGE_INTEGER	mTime;
+	float			mDeltaTime = 0.f;
+
 public:
-	void SetMaze(CMaze* Maze);
+	CMaze* GetMaze()	const
+	{
+		return mMaze;
+	}
+
+public:
+	virtual void SetMaze(CMaze* Maze);
 
 public:
 	virtual bool Init();
 	virtual void Run();
+
+private:
+	void Update();
+	void Output();
 
 public:
 	template <typename T>
@@ -29,6 +43,7 @@ public:
 		T* Obj = new T;
 
 		Obj->SetPos(x, y);
+		Obj->SetScene(this);
 
 		if (!Obj->Init())
 		{

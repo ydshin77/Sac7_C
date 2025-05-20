@@ -16,8 +16,20 @@ private:
 	int		mCountY = 0;
 	std::vector<ETileType>	mTileList;
 	std::vector<char>		mTileOutputList;
+	COORD	mStartPos;
+	COORD	mExitPos;
 
 public:
+	const COORD& GetStartPos()	const
+	{
+		return mStartPos;
+	}
+
+	const COORD& GetExitPos()	const
+	{
+		return mExitPos;
+	}
+
 	const char* GetName()	const
 	{
 		return mName;
@@ -42,6 +54,9 @@ public:
 	{
 		return (int)mTileOutputList.size();
 	}
+
+	ETileType GetTileType(const COORD& Pos);
+	void SetTileType(ETileType Type, const COORD& Pos);
 
 public:
 	bool Init(const char* FileName);

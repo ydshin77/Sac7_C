@@ -1,58 +1,53 @@
 #include <iostream>
 
-class CPlayer
+class CSingleton
 {
-public:
-	// 생성자
-	CPlayer() :
-		// 이니셜라이저 사용 (선언과 동시에 초기화)
-		mAttack(10),
-		mDefense(20)
+private:
+	CSingleton()
 	{
-		// mAttack 변수가 선언이 된 후 50 대입
-		mAttack = 50;
-		printf("CPlayer 생성자\n");
-	}
-	// 생성자 오버로딩
-	CPlayer(const char* Name) :
-		mAttack(30),
-		mDefense(40)
-	{
-		printf("CPlayer const char* 생성자\n");
-	}
-	// 소멸자
-	~CPlayer()
-	{
-		printf("CPlayer 소멸자\n");
-	}
 
-public:
-	char	mName[32] = {};
-	int		mAttack = 0;
+	}
+	~CSingleton()
+	{
+
+	}
 
 private:
-	int		mDefense = 0;
+	static CSingleton* mInst;
+	//static CSingleton mInst1;
 
 public:
-	void Output()
+	static CSingleton* GetInst()
 	{
-		printf("공격력 : %d\n", mAttack);
+		if (mInst == nullptr)
+			mInst = new CSingleton;
+
+		return mInst;
+	}
+
+	static void DestroyInst()
+	{
+		if (mInst)
+		{
+			delete mInst;
+			mInst = nullptr;
+		}
 	}
 };
 
+CSingleton* CSingleton::mInst = nullptr;
+
 int main()
 {
-	CPlayer Player1, Player2("이름");
-	
-	Player1.mAttack = 20;
-	// 출력 : 20
-	Player1.Output();
+	// 디자인패턴 알아놓으면 좋음 -> 관리자클래스를 만들 땐 보통 싱글톤패턴(static 이용)으로 제작함
+// CSingleton single;
 
-	Player2.mAttack = 300;
-	// 출력 : 300
-	Player2.Output();
+	printf("Inst = %p\n", CSingleton::GetInst());
+	printf("Inst = %p\n", CSingleton::GetInst());
+	printf("Inst = %p\n", CSingleton::GetInst());
+	printf("Inst = %p\n", CSingleton::GetInst());
 
-	printf("Player Size = %d\n", sizeof(CPlayer));
+	CSingleton::DestroyInst();
 
 	return 0;
 }

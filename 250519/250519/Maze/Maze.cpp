@@ -13,6 +13,39 @@ CMaze::~CMaze()
 {
 }
 
+ETileType CMaze::GetTileType(const COORD& Pos)
+{
+	int	Index = Pos.Y * mCountX + Pos.X;
+
+	return mTileList[Index];
+}
+
+void CMaze::SetTileType(ETileType Type, const COORD& Pos)
+{
+	int	Index = Pos.Y * mCountX + Pos.X;
+
+	mTileList[Index] = Type;
+
+	Index = Pos.Y * (mCountX + 1) + Pos.X;
+
+	switch (Type)
+	{
+	case ETileType::Road:
+	case ETileType::Bomb:
+		mTileOutputList[Index] = ' ';
+		break;
+	case ETileType::Wall:
+		mTileOutputList[Index] = '*';
+		break;
+	case ETileType::Start:
+		mTileOutputList[Index] = '!';
+		break;
+	case ETileType::Exit:
+		mTileOutputList[Index] = '#';
+		break;
+	}
+}
+
 bool CMaze::Init(const char* FileName)
 {
 	FILE* File = nullptr;
@@ -35,7 +68,7 @@ bool CMaze::Init(const char* FileName)
 	mCountY = atoi(Context);
 
 	// reserve : 동적배열의 크기를 원하는 크기만큼 생성해둔다.
-	mTileList.reserve(mCountX * mCountY + mCountY);
+	mTileList.reserve(mCountX * mCountY);
 
 	for (int i = 0; i < mCountY; ++i)
 	{
@@ -48,15 +81,20 @@ bool CMaze::Init(const char* FileName)
 			switch ((ETileType)Line[j])
 			{
 			case ETileType::Road:
+			case ETileType::Bomb:
 				mTileOutputList.push_back(' ');
 				break;
 			case ETileType::Wall:
 				mTileOutputList.push_back('*');
 				break;
 			case ETileType::Start:
+				mStartPos.X = j;
+				mStartPos.Y = i;
 				mTileOutputList.push_back('!');
 				break;
 			case ETileType::Exit:
+				mExitPos.X = j;
+				mExitPos.Y = i;
 				mTileOutputList.push_back('#');
 				break;
 			}

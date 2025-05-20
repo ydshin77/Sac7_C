@@ -60,6 +60,9 @@
     <ClCompile Include="Scene\SceneGame.cpp">
       <Filter>04. Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Object\Bomb.cpp">
+      <Filter>03. Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameInfo.h">
@@ -94,6 +97,9 @@
     </ClInclude>
     <ClInclude Include="Scene\SceneGame.h">
       <Filter>04. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Bomb.h">
+      <Filter>03. Object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

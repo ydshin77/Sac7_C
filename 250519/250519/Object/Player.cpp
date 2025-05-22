@@ -94,14 +94,14 @@ void CPlayer::Update(float DeltaTime)
 	if (GetAsyncKeyState(VK_SPACE) & 0x8000)
 	{
 		// ÇöÀç À§Ä¡°¡ ÆøÅºÀÌ ¾Æ´Ò °æ¿ì ¼³Ä¡ÇÑ´Ù.
-		if (Tile == ETileType::Road && mBombCount > 0)
+		if (Tile == ETileType::Road && mBombCount < mBombCountMax)
 		{
 			CBomb* Bomb = mScene->CreateObj<CBomb>(mPos.X, mPos.Y);
 
 			Bomb->SetPlayer(this);
 			Bomb->SetPower(mBombPower);
 
-			--mBombCount;
+			++mBombCount;
 
 			mScene->GetMaze()->SetTileType(ETileType::Bomb,
 				mPos);

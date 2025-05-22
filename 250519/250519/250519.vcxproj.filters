@@ -63,6 +63,21 @@
     <ClCompile Include="Object\Bomb.cpp">
       <Filter>03. Object</Filter>
     </ClCompile>
+    <ClCompile Include="Object\Item.cpp">
+      <Filter>03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\ItemCount.cpp">
+      <Filter>03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\ItemMoveSpeed.cpp">
+      <Filter>03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\ItemPower.cpp">
+      <Filter>03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Trap.cpp">
+      <Filter>03. Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameInfo.h">
@@ -99,6 +114,21 @@
       <Filter>04. Scene</Filter>
     </ClInclude>
     <ClInclude Include="Object\Bomb.h">
+      <Filter>03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Item.h">
+      <Filter>03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\ItemCount.h">
+      <Filter>03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\ItemMoveSpeed.h">
+      <Filter>03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\ItemPower.h">
+      <Filter>03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Trap.h">
       <Filter>03. Object</Filter>
     </ClInclude>
   </ItemGroup>

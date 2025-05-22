@@ -3,16 +3,14 @@
 #include "GameObject.h"
 
 class CPlayer;
-class CBomb :
+class CTrap :
     public CGameObject
 {
 public:
-	CBomb();
-	virtual ~CBomb();
+	CTrap();
+	virtual ~CTrap();
 
-private:
-	int		mPower = 1;
-	float	mFireTime = 5.f;
+protected:
 	CPlayer* mPlayer = nullptr;
 
 public:
@@ -21,22 +19,9 @@ public:
 		mPlayer = Player;
 	}
 
-	void SetPower(int Power)
-	{
-		mPower = Power;
-	}
-
-	void SetFireTime(float Time)
-	{
-		mFireTime = Time;
-	}
-
 public:
 	virtual bool Init();
 	virtual void Update(float DeltaTime);
 	virtual void Output(char* Buffer);
-
-private:
-	void BreakWall(const COORD& Pos);
 };
 

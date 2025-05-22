@@ -16,10 +16,21 @@ private:
 	int		mCountY = 0;
 	std::vector<ETileType>	mTileList;
 	std::vector<char>		mTileOutputList;
+	std::vector<COORD>		mTrapPosList;
 	COORD	mStartPos;
 	COORD	mExitPos;
 
 public:
+	int GetTrapCount()	const
+	{
+		return (int)mTrapPosList.size();
+	}
+
+	const COORD& GetTrapPos(int Index)	const
+	{
+		return mTrapPosList[Index];
+	}
+
 	const COORD& GetStartPos()	const
 	{
 		return mStartPos;

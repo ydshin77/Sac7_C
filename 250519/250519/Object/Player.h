@@ -13,13 +13,41 @@ private:
 	float	mPosX = 0.f;
 	float	mPosY = 0.f;
 	float	mMoveSpeed = 5.f;
-	int		mBombCount = 1;
-	int		mBombPower = 3;
+	int		mBombCount = 0;
+	int		mBombCountMax = 1;
+	int		mBombPower = 1;
 
 public:
 	void RestoreBombCount()
 	{
-		++mBombCount;
+		--mBombCount;
+
+		if (mBombCount < 0)
+			mBombCount = 0;
+	}
+
+	void CountUp()
+	{
+		++mBombCountMax;
+
+		if (mBombCountMax > 5)
+			mBombCountMax = 5;
+	}
+
+	void PowerUp()
+	{
+		++mBombPower;
+
+		if (mBombPower > 5)
+			mBombPower = 5;
+	}
+
+	void MoveSpeedUp()
+	{
+		mMoveSpeed += 0.5f;
+
+		if (mMoveSpeed > 10.f)
+			mMoveSpeed = 10.f;
 	}
 
 public:

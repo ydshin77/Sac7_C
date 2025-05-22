@@ -32,6 +32,7 @@ void CMaze::SetTileType(ETileType Type, const COORD& Pos)
 	{
 	case ETileType::Road:
 	case ETileType::Bomb:
+	case ETileType::Trap:
 		mTileOutputList[Index] = ' ';
 		break;
 	case ETileType::Wall:
@@ -78,6 +79,10 @@ bool CMaze::Init(const char* FileName)
 		{
 			mTileList.push_back((ETileType)Line[j]);
 
+			COORD	Pos;
+			Pos.X = j;
+			Pos.Y = i;
+
 			switch ((ETileType)Line[j])
 			{
 			case ETileType::Road:
@@ -88,14 +93,16 @@ bool CMaze::Init(const char* FileName)
 				mTileOutputList.push_back('*');
 				break;
 			case ETileType::Start:
-				mStartPos.X = j;
-				mStartPos.Y = i;
+				mStartPos = Pos;
 				mTileOutputList.push_back('!');
 				break;
 			case ETileType::Exit:
-				mExitPos.X = j;
-				mExitPos.Y = i;
+				mExitPos = Pos;
 				mTileOutputList.push_back('#');
+				break;
+			case ETileType::Trap:
+				mTrapPosList.push_back(Pos);
+				mTileOutputList.push_back(' ');
 				break;
 			}
 		}

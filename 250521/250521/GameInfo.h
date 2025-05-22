@@ -11,22 +11,13 @@
 
 #define	SAFE_DELETE(p)	if(p)	{ delete p; p = nullptr; }
 
-enum class ETileType : char
-{
-	Road = '0',
-	Wall = '1',
-	Start = '2',
-	Exit = '3',
-	Bomb = '4',
-	Trap = '5'
-};
+#define	STAGE_WIDTH		9
+#define	STAGE_HEIGHT	12
 
-enum class EItemType : unsigned char
+enum class EBlockType : char
 {
-	BombPower,
-	BombCount,
-	MoveSpeed,
-	End
+	Empty = '0',
+	Block = '1'
 };
 
 static void MoveCursor(int x, int y)

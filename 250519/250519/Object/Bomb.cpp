@@ -1,7 +1,11 @@
 #include "Bomb.h"
 #include "../Maze/Maze.h"
-#include "../Scene/Scene.h"
+#include "../Scene/SceneGame.h"
 #include "Player.h"
+#include "ItemPower.h"
+#include "ItemCount.h"
+#include "ItemMoveSpeed.h"
+#include "Trap.h"
 
 CBomb::CBomb()
 {
@@ -36,12 +40,7 @@ void CBomb::Update(float DeltaTime)
 			Pos.Y -= i;
 			if (Pos.Y >= 0)
 			{
-				Type = Maze->GetTileType(Pos);
-
-				if (Type == ETileType::Wall)
-				{
-					Maze->SetTileType(ETileType::Road, Pos);
-				}
+				BreakWall(Pos);
 			}
 
 			// 아래
@@ -49,12 +48,7 @@ void CBomb::Update(float DeltaTime)
 			Pos.Y += i;
 			if (Pos.Y < TileCountY)
 			{
-				Type = Maze->GetTileType(Pos);
-
-				if (Type == ETileType::Wall)
-				{
-					Maze->SetTileType(ETileType::Road, Pos);
-				}
+				BreakWall(Pos);
 			}
 
 			// 왼쪽
@@ -62,12 +56,7 @@ void CBomb::Update(float DeltaTime)
 			Pos.X -= i;
 			if (Pos.X >= 0)
 			{
-				Type = Maze->GetTileType(Pos);
-
-				if (Type == ETileType::Wall)
-				{
-					Maze->SetTileType(ETileType::Road, Pos);
-				}
+				BreakWall(Pos);
 			}
 
 			// 오른쪽
@@ -75,12 +64,7 @@ void CBomb::Update(float DeltaTime)
 			Pos.X += i;
 			if (Pos.X < TileCountX)
 			{
-				Type = Maze->GetTileType(Pos);
-
-				if (Type == ETileType::Wall)
-				{
-					Maze->SetTileType(ETileType::Road, Pos);
-				}
+				BreakWall(Pos);
 			}
 		}
 
@@ -97,4 +81,60 @@ void CBomb::Output(char* Buffer)
 	int	CountX = mScene->GetMaze()->GetCountX() + 1;
 
 	Buffer[mPos.Y * CountX + mPos.X] = '%';
+}
+
+void CBomb::BreakWall(const COORD& Pos)
+{
+	CMaze* Maze = mScene->GetMaze();
+
+	ETileType Type = Maze->GetTileType(Pos);
+
+	if (Type == ETileType::Wall)
+	{
+		Maze->SetTileType(ETileType::Road, Pos);
+
+		// 아이템이 나올 확률을 구한다.
+		float	Percent = rand() % 10001 / 100.f;
+
+		if (Percent <= 50.f)
+		{
+			EItemType	DropItemType =
+				(EItemType)(rand() % (int)EItemType::End);
+
+			CItem* Item = nullptr;
+
+			switch (DropItemType)
+			{
+			case EItemType::BombPower:
+				Item = mScene->CreateObj<CItemPower>(Pos.X, Pos.Y);
+				break;
+			case EItemType::BombCount:
+				Item = mScene->CreateObj<CItemCount>(Pos.X, Pos.Y);
+				break;
+			case EItemType::MoveSpeed:
+				Item = mScene->CreateObj<CItemMoveSpeed>(Pos.X, Pos.Y);
+				break;
+			}
+
+			Item->SetPlayer(mPlayer);
+		}
+	}
+
+	CSceneGame* Scene = dynamic_cast<CSceneGame*>(mScene);
+
+	if (Scene)
+	{
+		int	CountX = Maze->GetCountX();
+
+		int	Index = Pos.Y * CountX + Pos.X;
+
+		CTrap* Trap = Scene->FindTrap(Index);
+
+		if (Trap)
+		{
+			Maze->SetTileType(ETileType::Road, Pos);
+			Scene->EraseTrap(Index);
+			Trap->Destroy();
+		}
+	}
 }

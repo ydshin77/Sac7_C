@@ -3,7 +3,7 @@
 #include "Scene.h"
 
 class CSceneMainMenu :
-	public CScene
+    public CScene
 {
 public:
 	CSceneMainMenu();

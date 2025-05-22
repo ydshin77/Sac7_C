@@ -1,4 +1,5 @@
 #include <iostream>
+#include <functional>
 
 int main()
 {
@@ -29,13 +30,37 @@ int main()
 
 	auto Num3 = 10, Num4 = 20;
 
-	// 외부 변수 캡쳐 방식 -> 인자를 안넣어도 Num3, Num4로 처리 44 49
+	// 값 캡쳐 방식
 	auto func4 = [Num3, Num4]()
 		{
 			return Num3 + Num4;
 		};
 
 	printf("Func4 = %d\n", func4());
+
+	// 참조 캡쳐 방식
+	auto func5 = [&Num3, &Num4]()
+		{
+			++Num3;
+			++Num4;
+			return Num3 + Num4;
+		};
+
+	// 출력 : 10, 20
+	printf("Num3 = %d, Num4 = %d\n", Num3, Num4);
+
+	// 출력 : 32
+	printf("Func5 = %d\n", func5());
+
+	// 출력 : 11, 21
+	printf("Num3 = %d, Num4 = %d\n", Num3, Num4);
+
+	std::function<void()> func6 = []()
+		{
+			printf("Test Func6\n");
+		};
+
+	func6();
 
 	return 0;
 }

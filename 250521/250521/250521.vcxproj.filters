@@ -14,13 +14,16 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="01. GameManager">
-      <UniqueIdentifier>{6fee2339-b2a3-4ec0-ab1c-a246d680e74d}</UniqueIdentifier>
+      <UniqueIdentifier>{855534c1-37f5-4103-a959-867b25f4b2ee}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.Scene">
-      <UniqueIdentifier>{f4f514ea-b015-45df-9060-e470528aecad}</UniqueIdentifier>
+    <Filter Include="02. Scene">
+      <UniqueIdentifier>{f771557e-0080-43bd-99ce-e08286ba5878}</UniqueIdentifier>
     </Filter>
     <Filter Include="03. Stage">
-      <UniqueIdentifier>{68d685ee-e47a-4efc-bd46-c1bd8f3dc7eb}</UniqueIdentifier>
+      <UniqueIdentifier>{40d6f95a-82c9-418b-a012-71e1d77f5677}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object">
+      <UniqueIdentifier>{407a0e5d-1b4d-4ece-bfe8-bef72e9ab9db}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -31,19 +34,46 @@
       <Filter>01. GameManager</Filter>
     </ClCompile>
     <ClCompile Include="Scene\SceneManager.cpp">
-      <Filter>02.Scene</Filter>
+      <Filter>02. Scene</Filter>
     </ClCompile>
     <ClCompile Include="Scene\Scene.cpp">
-      <Filter>02.Scene</Filter>
+      <Filter>02. Scene</Filter>
     </ClCompile>
-    <ClCompile Include="SceneMainMenu.cpp">
-      <Filter>02.Scene</Filter>
+    <ClCompile Include="Scene\SceneMainMenu.cpp">
+      <Filter>02. Scene</Filter>
     </ClCompile>
     <ClCompile Include="Scene\SceneGame.cpp">
-      <Filter>02.Scene</Filter>
+      <Filter>02. Scene</Filter>
     </ClCompile>
     <ClCompile Include="Stage\Stage.cpp">
       <Filter>03. Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\GameObject.cpp">
+      <Filter>04. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Block.cpp">
+      <Filter>04. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Block1.cpp">
+      <Filter>04. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Block2.cpp">
+      <Filter>04. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Block3.cpp">
+      <Filter>04. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Block4.cpp">
+      <Filter>04. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Block5.cpp">
+      <Filter>04. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Block6.cpp">
+      <Filter>04. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Block7.cpp">
+      <Filter>04. Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -54,19 +84,46 @@
       <Filter>01. GameManager</Filter>
     </ClInclude>
     <ClInclude Include="Scene\SceneManager.h">
-      <Filter>02.Scene</Filter>
+      <Filter>02. Scene</Filter>
     </ClInclude>
     <ClInclude Include="Scene\Scene.h">
-      <Filter>02.Scene</Filter>
+      <Filter>02. Scene</Filter>
     </ClInclude>
     <ClInclude Include="Scene\SceneMainMenu.h">
-      <Filter>02.Scene</Filter>
+      <Filter>02. Scene</Filter>
     </ClInclude>
     <ClInclude Include="Scene\SceneGame.h">
-      <Filter>02.Scene</Filter>
+      <Filter>02. Scene</Filter>
     </ClInclude>
     <ClInclude Include="Stage\Stage.h">
       <Filter>03. Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\GameObject.h">
+      <Filter>04. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Block.h">
+      <Filter>04. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Block1.h">
+      <Filter>04. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Block2.h">
+      <Filter>04. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Block3.h">
+      <Filter>04. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Block4.h">
+      <Filter>04. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Block5.h">
+      <Filter>04. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Block6.h">
+      <Filter>04. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Block7.h">
+      <Filter>04. Object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

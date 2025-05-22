@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{a4955c32-5d3f-4023-91df-53654be76dc5}</ProjectGuid>
+    <ProjectGuid>{c3a4a88c-f219-403e-8e1a-000225779f4b}</ProjectGuid>
     <RootNamespace>My250521</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -129,15 +129,33 @@
   <ItemGroup>
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="SceneMainMenu.cpp" />
+    <ClCompile Include="Object\Block.cpp" />
+    <ClCompile Include="Object\Block1.cpp" />
+    <ClCompile Include="Object\Block2.cpp" />
+    <ClCompile Include="Object\Block3.cpp" />
+    <ClCompile Include="Object\Block4.cpp" />
+    <ClCompile Include="Object\Block5.cpp" />
+    <ClCompile Include="Object\Block6.cpp" />
+    <ClCompile Include="Object\Block7.cpp" />
+    <ClCompile Include="Object\GameObject.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />
     <ClCompile Include="Scene\SceneGame.cpp" />
+    <ClCompile Include="Scene\SceneMainMenu.cpp" />
     <ClCompile Include="Scene\SceneManager.cpp" />
     <ClCompile Include="Stage\Stage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameInfo.h" />
     <ClInclude Include="GameManager.h" />
+    <ClInclude Include="Object\Block.h" />
+    <ClInclude Include="Object\Block1.h" />
+    <ClInclude Include="Object\Block2.h" />
+    <ClInclude Include="Object\Block3.h" />
+    <ClInclude Include="Object\Block4.h" />
+    <ClInclude Include="Object\Block5.h" />
+    <ClInclude Include="Object\Block6.h" />
+    <ClInclude Include="Object\Block7.h" />
+    <ClInclude Include="Object\GameObject.h" />
     <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="Scene\SceneGame.h" />
     <ClInclude Include="Scene\SceneMainMenu.h" />

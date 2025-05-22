@@ -10,6 +10,7 @@
 #include <time.h>
 
 #define	SAFE_DELETE(p)	if(p)	{ delete p; p = nullptr; }
+#define	SAFE_DELETE_ARRAY(p)	if(p)	{ delete[] p; p = nullptr; }
 
 #define	STAGE_WIDTH		9
 #define	STAGE_HEIGHT	12
